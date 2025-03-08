@@ -9,6 +9,10 @@ Imagine stepping into an invisible world, where trillions of bacteria interact t
 
 Get ready to explore, analyze, and interpret microbial data like a pro! 🚀
 
+## References 
+## “Atacama soil microbiome” tutorial: https://docs.qiime2.org/2024.5/tutorials/atacama-soils/
+## “Moving Pictures” tutorial: https://docs.qiime2.org/2024.5/tutorials/moving-pictures/
+
 Welcome to the workshop! 
 
 🎉 Let's set up and analyze microbial communities step by step. You got this! 💪
