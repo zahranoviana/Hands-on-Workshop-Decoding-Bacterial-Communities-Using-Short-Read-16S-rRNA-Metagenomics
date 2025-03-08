@@ -29,6 +29,28 @@ Welcome to the workshop!
 
 ### 1️⃣ Install QIIME2 and Download Database, Sequences, Metafile, and Barcode Information
 
+#### Just in case you don't have conda, you need to install it first
+
+This is to download Miniconda installer:
+```
+# wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh 
+```
+
+Execute installation:
+```
+# bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+Test if it is installed correctly:
+```
+# conda list
+```
+
+Alternatively, you can call the specific module available on HPC:
+```
+# module load earth/miniconda3/24.11.1
+```
+
 #### 🔥 1.1 First, let's install QIIME2 and set up our environment!
 
 This code is for the installation (Estimated time: 30s):
