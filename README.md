@@ -137,7 +137,7 @@ qiime tools import \
    --output-path emp-paired-end-sequences.qza
 ```
 
-Demultiplex (Estimated time: 2 min):
+Demultiplex (Estimated time: 3 min):
 ```
 qiime demux emp-paired \
   --m-barcodes-file sample-metadata.tsv \
