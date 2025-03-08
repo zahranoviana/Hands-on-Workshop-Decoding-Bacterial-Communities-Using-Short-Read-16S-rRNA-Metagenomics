@@ -178,14 +178,14 @@ You can open the qzv file in https://view.qiime2.org/. The result is something l
 
 Now, let's clean and process the data for better accuracy!
 
-Convert our file to appropriate format:
+Convert our file to appropriate format (Estimated time: 2 min):
 ```
 qiime tools export \
   --input-path demux-subsample.qzv \
   --output-path ./demux-subsample/
 ```
 
-Filter out low-quality reads (Estimated time: 30s):
+Filter out low-reads samples (Estimated time: 1 min):
 ```
 qiime demux filter-samples \
   --i-demux demux-subsample.qza \
