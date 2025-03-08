@@ -272,11 +272,21 @@ Visualization of the result from https://view.qiime2.org/:
 
 #### 5.2 📊 Test Alpha Diversity Metrics
 
+First let's do alpha and beta diversity analysis (estimasi 1 menit):
+```
+qiime diversity core-metrics-phylogenetic \
+  --i-phylogeny rooted-tree.qza \
+  --i-table table.qza \
+  --p-sampling-depth 1000 \
+  --m-metadata-file sample-metadata.tsv \
+  --output-dir core-metrics-results
+```
+
 🧬 Faith’s Phylogenetic Diversity (Faith PD) 
 
 Evaluates phylogenetic diversity within samples.
 
-Calculate Faith PD metric (Estimated time: 30s):
+Visualize Faith PD metric (Estimated time: 30s):
 ```
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-results/faith_pd_vector.qza \
@@ -291,7 +301,7 @@ Visualization of the result from https://view.qiime2.org/:
 
 Measures how evenly species are distributed across samples.
 
-Calculate Evenness (Estimated time: 30s):
+Visualize Evenness (Estimated time: 30s):
 ```
 qiime diversity alpha-group-significance \
   --i-alpha-diversity core-metrics-results/evenness_vector.qza \
