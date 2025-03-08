@@ -165,6 +165,15 @@ qiime demux summarize \
   --o-visualization demux-subsample.qzv
 ```
 
+The result is something like this
+
+1. Count summary
+![image](https://github.com/user-attachments/assets/26859cf8-24fc-4333-b7ba-8f3076bd645d)
+
+2. Reads QC
+![image](https://github.com/user-attachments/assets/996bcb6c-bc43-450c-a607-cbf4cc1ec4fe)
+
+
 ### 4️⃣ Filtering, Denoising, and Feature Analysis
 
 Now, let's clean and process the data for better accuracy!
