@@ -174,7 +174,7 @@ You can open the qzv file in https://view.qiime2.org/. The result is something l
 ![image](https://github.com/user-attachments/assets/996bcb6c-bc43-450c-a607-cbf4cc1ec4fe)
 
 
-### 4️⃣ Filtering, Denoising, and Feature Analysis
+### 4️⃣ Filtering, Denoising, Feature Analysis, and Construction of Phylogenetic Tree
 
 Now, let's clean and process the data for better accuracy!
 
@@ -207,6 +207,40 @@ qiime dada2 denoise-paired \
   --o-denoising-stats denoising-stats.qza
 ```
 
+Summary of the frequency table (Estimated time: 1 min):
+```
+qiime feature-table summarize \
+  --i-table table.qza \
+  --o-visualization table.qzv  \
+  --m-sample-metadata-file sample-metadata.tsv
+```
+
+Summary of the representative sequences (Estimated time: 1 min):
+```
+qiime feature-table tabulate-seqs \
+  --i-data rep-seqs.qza \
+  --o-visualization rep-seqs.qzv 
+
+```
+
+Summary of the denoising stat (Estimated time: 1 min):
+```
+qiime metadata tabulate \
+  --m-input-file denoising-stats.qza \
+  --o-visualization denoising-stats.qzv 
+
+```
+
+Alignment and construction of phylogenetic tree (Estimated time: 1 min):
+```
+qiime phylogeny align-to-tree-mafft-fasttree \
+  --i-sequences rep-seqs.qza \
+  --o-alignment aligned-rep-seqs.qza \
+  --o-masked-alignment masked-aligned-rep-seqs.qza \
+  --o-tree unrooted-tree.qza \
+  --o-rooted-tree rooted-tree.qza
+```
+
 ### 5️⃣ Alpha and Beta Diversity Metrics and Visualization
 
 #### 5.1 📊 Rarefaction curves
@@ -215,7 +249,7 @@ qiime dada2 denoise-paired \
 
 This is to visualize rarefaction curve (Estimated time: 3-4 min):
 ```
-time qiime diversity alpha-rarefaction \
+qiime diversity alpha-rarefaction \
   --i-table table.qza \
   --i-phylogeny rooted-tree.qza \
   --p-max-depth 2000 \
