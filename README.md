@@ -215,21 +215,31 @@ qiime feature-table summarize \
   --m-sample-metadata-file sample-metadata.tsv
 ```
 
+You can open the qzv file in https://view.qiime2.org/. The result is something like this:
+![image](https://github.com/user-attachments/assets/9a6b2f9f-8b15-44de-87ed-1db5552f6510)
+
+
 Summary of the representative sequences (Estimated time: 1 min):
 ```
 qiime feature-table tabulate-seqs \
   --i-data rep-seqs.qza \
   --o-visualization rep-seqs.qzv 
-
 ```
+
+You can open the qzv file in https://view.qiime2.org/. The result is something like this:
+![image](https://github.com/user-attachments/assets/dd2a62e8-4a99-4bdc-b93d-adfbb26cc800)
+
 
 Summary of the denoising stat (Estimated time: 1 min):
 ```
 qiime metadata tabulate \
   --m-input-file denoising-stats.qza \
   --o-visualization denoising-stats.qzv 
-
 ```
+
+You can open the qzv file in https://view.qiime2.org/. The result is something like this:
+![image](https://github.com/user-attachments/assets/293e616d-a8f6-4444-a8c0-ee4db5fdfd22)
+
 
 Alignment and construction of phylogenetic tree (Estimated time: 1 min):
 ```
