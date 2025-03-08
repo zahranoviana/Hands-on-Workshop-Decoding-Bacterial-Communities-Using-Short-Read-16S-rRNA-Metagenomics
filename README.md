@@ -215,7 +215,7 @@ qiime feature-table summarize \
   --m-sample-metadata-file sample-metadata.tsv
 ```
 
-You can open the qzv file in https://view.qiime2.org/. The result is something like this:
+Visualization of the result from https://view.qiime2.org/:
 ![image](https://github.com/user-attachments/assets/9a6b2f9f-8b15-44de-87ed-1db5552f6510)
 
 
@@ -226,7 +226,7 @@ qiime feature-table tabulate-seqs \
   --o-visualization rep-seqs.qzv 
 ```
 
-You can open the qzv file in https://view.qiime2.org/. The result is something like this:
+Visualization of the result from https://view.qiime2.org/:
 ![image](https://github.com/user-attachments/assets/dd2a62e8-4a99-4bdc-b93d-adfbb26cc800)
 
 
@@ -237,7 +237,7 @@ qiime metadata tabulate \
   --o-visualization denoising-stats.qzv 
 ```
 
-You can open the qzv file in https://view.qiime2.org/. The result is something like this:
+Visualization of the result from https://view.qiime2.org/:
 ![image](https://github.com/user-attachments/assets/293e616d-a8f6-4444-a8c0-ee4db5fdfd22)
 
 
@@ -257,7 +257,7 @@ qiime phylogeny align-to-tree-mafft-fasttree \
 
 📉 Rarefaction Curve - Visualizes sequencing depth and richness 
 
-This is to visualize rarefaction curve (Estimated time: 3-4 min):
+This is to visualize rarefaction curve (Estimated time: 4-10 min):
 ```
 qiime diversity alpha-rarefaction \
   --i-table table.qza \
@@ -266,6 +266,9 @@ qiime diversity alpha-rarefaction \
   --m-metadata-file sample-metadata.tsv \
   --o-visualization alpha-rarefaction.qzv
 ```
+
+Visualization of the result from https://view.qiime2.org/:
+
 
 #### 5.2 📊 Test Alpha Diversity Metrics
 
@@ -281,6 +284,9 @@ qiime diversity alpha-group-significance \
   --o-visualization core-metrics-results/faith-pd-group-significance.qzv
 ```
 
+Visualization of the result from https://view.qiime2.org/:
+
+
 🌍 Evenness Test (Estimated time: 30s)
 
 Measures how evenly species are distributed across samples.
@@ -292,6 +298,9 @@ qiime diversity alpha-group-significance \
   --m-metadata-file sample-metadata.tsv \
   --o-visualization core-metrics-results/evenness-group-significance.qzv
 ```
+
+Visualization of the result from https://view.qiime2.org/:
+
 
 #### 5.3 🔬 Test Beta Diversity Metrics
 
