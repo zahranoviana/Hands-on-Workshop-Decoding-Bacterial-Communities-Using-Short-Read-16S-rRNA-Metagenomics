@@ -207,40 +207,6 @@ qiime dada2 denoise-paired \
   --o-denoising-stats denoising-stats.qza
 ```
 
-Summary of the frequency table (Estimated time: 1 min):
-```
-qiime feature-table summarize \
-  --i-table table.qza \
-  --o-visualization table.qzv  \
-  --m-sample-metadata-file sample-metadata.tsv
-```
-
-Visualization of the result from https://view.qiime2.org/:
-![image](https://github.com/user-attachments/assets/9a6b2f9f-8b15-44de-87ed-1db5552f6510)
-
-
-Summary of the representative sequences (Estimated time: 1 min):
-```
-qiime feature-table tabulate-seqs \
-  --i-data rep-seqs.qza \
-  --o-visualization rep-seqs.qzv 
-```
-
-Visualization of the result from https://view.qiime2.org/:
-![image](https://github.com/user-attachments/assets/dd2a62e8-4a99-4bdc-b93d-adfbb26cc800)
-
-
-Summary of the denoising stat (Estimated time: 1 min):
-```
-qiime metadata tabulate \
-  --m-input-file denoising-stats.qza \
-  --o-visualization denoising-stats.qzv 
-```
-
-Visualization of the result from https://view.qiime2.org/:
-![image](https://github.com/user-attachments/assets/293e616d-a8f6-4444-a8c0-ee4db5fdfd22)
-
-
 Alignment and construction of phylogenetic tree (Estimated time: 1 min):
 ```
 qiime phylogeny align-to-tree-mafft-fasttree \
@@ -298,56 +264,10 @@ qiime diversity alpha-group-significance \
 Visualization of the result from https://view.qiime2.org/:
 ![image](https://github.com/user-attachments/assets/e093d9ab-0c6b-4594-b11b-b0803bf50d2f)
 
-🌍 Evenness Test (Estimated time: 30s)
-
-Measures how evenly species are distributed across samples.
-
-Visualize Evenness (Estimated time: 30s):
-```
-qiime diversity alpha-group-significance \
-  --i-alpha-diversity core-metrics-results/evenness_vector.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --o-visualization core-metrics-results/evenness-group-significance.qzv
-```
-
-Visualization of the result from https://view.qiime2.org/:
-![image](https://github.com/user-attachments/assets/09b52ade-aafc-47c5-96bf-9e0b1639a462)
-
 
 #### 5.3 🔬 Test Beta Diversity Metrics
 
-🔗 Unweighted UniFrac Distance Test 
-
-Compares community composition differences between groups.
-
-Calculate Beta Diversity significance using UniFrac distance (Estimated time: 1 min):
-```
-qiime diversity beta-group-significance \
-  --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --m-metadata-column transect-name \
-  --o-visualization core-metrics-results/unweighted-unifrac-transect-name-significance.qzv \
-  --p-pairwise
-```
-
-Visualization of the result:
-![image](https://github.com/user-attachments/assets/6639cf23-e4fa-4f40-b276-9d041015950e)
-
-
 🎭 Principal Coordinate Analysis (PCoA) Visualization
-
-🗺️ UniFrac PCoA Plot
-
-Visualize PCoA using UniFrac distance (Estimated time: 1 min):
-```
-qiime emperor plot \
-  --i-pcoa core-metrics-results/unweighted_unifrac_pcoa_results.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --o-visualization core-metrics-results/unweighted-unifrac-emperor.qzv
-```
-
-Visualization of the result:
-![image](https://github.com/user-attachments/assets/11a40750-5fdb-49af-a545-26a542f2be12)
 
 📌 Bray-Curtis PCoA Plot 
 
