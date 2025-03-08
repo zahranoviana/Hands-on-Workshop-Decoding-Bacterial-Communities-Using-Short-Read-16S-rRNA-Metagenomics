@@ -1,6 +1,6 @@
 # 🎯 Hands-on Workshop: Decoding Bacterial Communities Using Short-Read 16S rRNA Metagenomics
 
-## 📅 Session 1: March 11th, 2025
+## 📅 Date: March 11th, 2025
 ## 👨‍🏫 Instructor: Zahra Noviana
 ## 👥 Participants: Staff of RC Applied Microbiology - BRIN
 
@@ -9,22 +9,21 @@ Imagine stepping into an invisible world, where trillions of bacteria interact t
 
 Get ready to explore, analyze, and interpret microbial data like a pro! 🚀
 
-🚀 QIIME2 Installation and Analysis Workflow
+Welcome to the workshop! 
 
-Welcome to the workshop! 🎉 Let's set up and analyze microbial communities step by step. You got this! 💪
+🎉 Let's set up and analyze microbial communities step by step. You got this! 💪
 
 ## 📌 Outline
-1. Install QIIME2 and Download Database
-2. Set Up the QIIME2 Environment
-3. Prepare the Working Directory
-4. Import and Process Data
-5. Filter, Denoise, and Analyze Features
-6. Taxonomic Classification and Diversity Analysis
-7. Statistical Analysis and Visualization
+1. Install QIIME2 and Download Database, Sequences, Metafile, and Barcode Information
+2. Set Up the QIIME2 Environment and Prepare Working Directory
+3. Import and Process Data
+4. Filter, Denoise, and Analyze Features
+5. Taxonomic Classification and Diversity Analysis
+6. Statistical Analysis and Visualization
 
 ## 📌 Let's get things started! 
 
-### 1️⃣ Install QIIME2 and Download Database
+### 1️⃣ Install QIIME2 and Download Database, Sequences, Metafile, and Barcode Information
 
 #### 🔥 1.1 First, let's install QIIME 2 and set up our environment!
 ```
@@ -40,7 +39,7 @@ conda env create -n qiime2-amplicon-2024.5 --file https://data.qiime2.org/distro
 # wget -O qiime2-amplicon-2024.5.yml https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.5-py39-linux-conda.yml
 ```
 
-##### ⚡1.2 .bInstall via downloaded file
+##### ⚡1.2.b Install via downloaded file
 ```
 # This is to install qiime2 directly from file
 # conda env create -n qiime2-amplicon-2024.5 --file qiime2-amplicon-2024.5.yml
@@ -54,35 +53,66 @@ wget \
   "https://data.qiime2.org/classifiers/sklearn-1.4.2/greengenes/gg-13-8-99-515-806-nb-classifier.qza"
 ```
 
-### 2️⃣ Set Up the QIIME 2 Environment
-
-Now, let's enter the QIIME 2 interactive mode and activate our environment!
-
-srun --partition=interactive --pty /bin/bash
-conda activate qiime2-amplicon-2024.5
-qiime --help  # Test installation
-conda info  # Check active conda environment
-
-### 3️⃣ Prepare the Working Directory
-
-📂 Organize files before we begin!
-
-mkdir qiime2_training/
-cd qiime2_training/
-
-🗂️ 3.1 Download Metadata (Estimated time: 10s)
-
+#### 🗂️ 1.4 Download Metadata (Estimated time: 10s)
+```
+# This is to download metadata
 wget -O "sample-metadata.tsv" https://data.qiime2.org/2024.5/tutorials/atacama-soils/sample_metadata.tsv
+```
 
-📥 3.2 Download Raw Sequence Data
-
+#### 📥 1.5 Download Raw Sequence Data and Barcode
+```
+# First create a folder to put the reads
 mkdir raw/
-# Forward Reads (136.6 MB, Estimated time: 2 min)
+
+# This is to download forward reads (136.6 MB, Estimated time: 2 min)
 wget -O "raw/forward.fastq.gz" https://data.qiime2.org/2024.5/tutorials/atacama-soils/10p/forward.fastq.gz
-# Reverse Reads (153.6 MB, Estimated time: 2 min)
+```
+
+```
+# This is to download forward reads (153.6 MB, Estimated time: 2 min)
 wget -O "raw/reverse.fastq.gz" https://data.qiime2.org/2024.5/tutorials/atacama-soils/10p/reverse.fastq.gz
-# Barcode (Estimated time: 30s)
+```
+
+```
+# This is to download barcode information (Estimated time: 30s)
 wget -O "raw/barcodes.fastq.gz" https://data.qiime2.org/2024.5/tutorials/atacama-soils/10p/barcodes.fastq.gz
+```
+
+### 2️⃣ Set Up the QIIME2 Environment and Prepare the Working Directory
+
+#### Now, let's enter the interactive mode and activate our environment!
+
+```
+# This is to enter interactive mode
+srun --partition=interactive --pty /bin/bash
+```
+
+```
+# This is to activate qiime2 environment 
+conda activate qiime2-amplicon-2024.5
+```
+
+```
+# This is to check the installation
+qiime --help  
+```
+
+```
+# This is to check the active conda environment
+conda info  
+```
+
+#### 📂 Organize files before we begin!
+```
+# First create our working folder
+mkdir qiime2_training/
+```
+
+```
+# Now, let's move to the directory 
+cd qiime2_training/
+```
+
 
 ### 4️⃣ Import and Process Data
 
