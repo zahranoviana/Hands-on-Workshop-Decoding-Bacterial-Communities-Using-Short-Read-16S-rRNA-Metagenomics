@@ -10,9 +10,7 @@ Imagine stepping into an invisible world, where trillions of bacteria interact t
 Get ready to explore, analyze, and interpret microbial data like a pro! 🚀
 
 References:
-
-“Atacama soil microbiome” tutorial: https://docs.qiime2.org/2024.5/tutorials/atacama-soils/
-
+“Atacama soil microbiome” tutorial: https://docs.qiime2.org/2024.5/tutorials/atacama-soils/;
 “Moving Pictures” tutorial: https://docs.qiime2.org/2024.5/tutorials/moving-pictures/
 
 Welcome to the workshop! 
@@ -23,9 +21,9 @@ Welcome to the workshop!
 1. Install QIIME2 and Download Database, Sequences, Metafile, and Barcode Information
 2. Set Up the QIIME2 Environment and Prepare Working Directory
 3. Import and Process Data
-4. Filter, Denoise, and Analyze Features
-5. Taxonomic Classification and Diversity Analysis
-6. Statistical Analysis and Visualization
+4. Filtering, Denoising, and Feature Analysis
+5. Alpha and Beta Diversity Metrics and Visualization
+6. Taxonomic Assignment and Visualization
 
 ## 📌 Let's get things started! 
 
@@ -120,16 +118,19 @@ cd qiime2_training/
 ```
 
 
-### 4️⃣ Import and Process Data
+### 3️⃣ Import and Process Data
 
-Let's bring our sequences into QIIME 2 and demultiplex them!
+Let's bring our sequences into QIIME2 and demultiplex them!
 
-# Import to QIIME (Estimated time: 2 min)
+```
+# Import to QIIME2 (Estimated time: 2 min)
 qiime tools import \
    --type EMPPairedEndSequences \
    --input-path raw \
    --output-path emp-paired-end-sequences.qza
+```
 
+```
 # Demultiplex (Estimated time: 2 min)
 qiime demux emp-paired \
   --m-barcodes-file sample-metadata.tsv \
@@ -138,35 +139,46 @@ qiime demux emp-paired \
   --i-seqs emp-paired-end-sequences.qza \
   --o-per-sample-sequences demux-full.qza \
   --o-error-correction-details demux-details.qza
+```
 
-🎯 4.1 Subsampling and Summarizing Data
+🎯 Let's do subsampling and Summarizing Data
 
+```
 # Subsample (Estimated time: 1 min)
 qiime demux subsample-paired \
   --i-sequences demux-full.qza \
   --p-fraction 0.3 \
   --o-subsampled-sequences demux-subsample.qza
+```
 
+```
 # Summarize (Estimated time: 1 min)
 qiime demux summarize \
   --i-data demux-subsample.qza \
   --o-visualization demux-subsample.qzv
+```
 
-### 5️⃣ Filtering, Denoising, and Feature Analysis
+### 4️⃣ Filtering, Denoising, and Feature Analysis
 
 Now, let's clean and process the data for better accuracy!
 
-# Filter out low-quality reads (Estimated time: 30s)
+```
+# Convert our file to appropriate format
 qiime tools export \
   --input-path demux-subsample.qzv \
   --output-path ./demux-subsample/
+```
 
+```
+# Filter out low-quality reads (Estimated time: 30s)
 qiime demux filter-samples \
   --i-demux demux-subsample.qza \
   --m-metadata-file ./demux-subsample/per-sample-fastq-counts.tsv \
   --p-where 'CAST([forward sequence count] AS INT) > 100' \
   --o-filtered-demux demux.qza
+```
 
+```
 # Denoising with DADA2 (Estimated time: 4 min)
 qiime dada2 denoise-paired \
   --i-demultiplexed-seqs demux.qza \
@@ -177,151 +189,181 @@ qiime dada2 denoise-paired \
   --o-table table.qza \
   --o-representative-sequences rep-seqs.qza \
   --o-denoising-stats denoising-stats.qza
+```
 
-### 6️⃣ Taxonomic Classification and Diversity Analysis
+### 5️⃣ Alpha and Beta Diversity Metrics and Visualization
 
-Let's classify species and visualize the community composition!
+#### 5.1 📊 Rarefaction curves
 
-# Run classifier (Estimated time: 30s)
-qiime feature-classifier classify-sklearn \
-  --i-classifier gg-13-8-99-515-806-nb-classifier.qza \
-  --i-reads rep-seqs.qza \
-  --o-classification taxonomy.qza
+📉 Rarefaction Curve - Visualizes sequencing depth and richness  (Estimated time: 3-4 min).
 
-# Taxa Barplot Visualization
-qiime taxa barplot \
-  --i-table table.qza \
-  --i-taxonomy taxonomy.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --o-visualization taxa-bar-plots.qzv
-
-### 7️⃣ Statistical Analysis and Visualization
-
-📊 Test Alpha Diversity Metrics
-
-🧬 Faith’s Phylogenetic Diversity (Faith PD) (Estimated time: 30s)
-
-Evaluates phylogenetic diversity within samples.
-
-time qiime diversity alpha-group-significance \
-  --i-alpha-diversity core-metrics-results/faith_pd_vector.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --o-visualization core-metrics-results/faith-pd-group-significance.qzv
-
-🌍 Evenness Test (Estimated time: 30s)
-
-Measures how evenly species are distributed across samples.
-
-time qiime diversity alpha-group-significance \
-  --i-alpha-diversity core-metrics-results/evenness_vector.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --o-visualization core-metrics-results/evenness-group-significance.qzv
-
-🔬 Test Beta Diversity Metrics
-
-🔗 Unweighted UniFrac Distance Test (Estimated time: 1 min)
-
-Compares community composition differences between groups.
-
-time qiime diversity beta-group-significance \
-  --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --m-metadata-column transect-name \
-  --o-visualization core-metrics-results/unweighted-unifrac-transect-name-significance.qzv \
-  --p-pairwise
-
-🎭 Principal Coordinate Analysis (PCoA) Visualization
-
-🗺️ UniFrac PCoA Plot (Estimated time: 1 min)
-
-time qiime emperor plot \
-  --i-pcoa core-metrics-results/unweighted_unifrac_pcoa_results.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --p-custom-axes elevation \
-  --o-visualization core-metrics-results/unweighted-unifrac-emperor-elevation.qzv
-
-📌 Bray-Curtis PCoA Plot (Estimated time: 1 min)
-
-time qiime emperor plot \
-  --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \
-  --m-metadata-file sample-metadata.tsv \
-  --p-custom-axes elevation \
-  --o-visualization core-metrics-results/bray-curtis-emperor-days-elevation.qzv
-
-📉 Rarefaction Curve (Estimated time: 3-4 min)
-
-Visualizes sequencing depth and richness.
-
+```
+# This is to visualize rarefaction curve
 time qiime diversity alpha-rarefaction \
   --i-table table.qza \
   --i-phylogeny rooted-tree.qza \
   --p-max-depth 2000 \
   --m-metadata-file sample-metadata.tsv \
   --o-visualization alpha-rarefaction.qzv
+```
 
+#### 5.2 📊 Test Alpha Diversity Metrics
+
+🧬 Faith’s Phylogenetic Diversity (Faith PD) (Estimated time: 30s)
+
+Evaluates phylogenetic diversity within samples.
+
+```
+# Calculate Faith PD metric
+qiime diversity alpha-group-significance \
+  --i-alpha-diversity core-metrics-results/faith_pd_vector.qza \
+  --m-metadata-file sample-metadata.tsv \
+  --o-visualization core-metrics-results/faith-pd-group-significance.qzv
+```
+
+🌍 Evenness Test (Estimated time: 30s)
+
+Measures how evenly species are distributed across samples.
+
+```
+# Calculate Evenness
+qiime diversity alpha-group-significance \
+  --i-alpha-diversity core-metrics-results/evenness_vector.qza \
+  --m-metadata-file sample-metadata.tsv \
+  --o-visualization core-metrics-results/evenness-group-significance.qzv
+```
+
+#### 5.3 🔬 Test Beta Diversity Metrics
+
+🔗 Unweighted UniFrac Distance Test (Estimated time: 1 min)
+
+Compares community composition differences between groups.
+
+```
+# Calculate Beta Diversity significance using UniFrac distance
+time qiime diversity beta-group-significance \
+  --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
+  --m-metadata-file sample-metadata.tsv \
+  --m-metadata-column transect-name \
+  --o-visualization core-metrics-results/unweighted-unifrac-transect-name-significance.qzv \
+  --p-pairwise
+```
+
+🎭 Principal Coordinate Analysis (PCoA) Visualization
+
+🗺️ UniFrac PCoA Plot (Estimated time: 1 min)
+
+```
+# Visualize PCoA using UniFrac distance
+time qiime emperor plot \
+  --i-pcoa core-metrics-results/unweighted_unifrac_pcoa_results.qza \
+  --m-metadata-file sample-metadata.tsv \
+  --p-custom-axes elevation \
+  --o-visualization core-metrics-results/unweighted-unifrac-emperor-elevation.qzv
+```
+
+📌 Bray-Curtis PCoA Plot (Estimated time: 1 min)
+
+```
+# Visualize PCoA using Bray-Curtis distance
+time qiime emperor plot \
+  --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \
+  --m-metadata-file sample-metadata.tsv \
+  --p-custom-axes elevation \
+  --o-visualization core-metrics-results/bray-curtis-emperor-days-elevation.qzv
+```
+
+### 6️⃣ Taxonomic Assignment and Visualization
 🧬 Taxonomic Classification
 
-🏷️ Run Classifier (Estimated time: 30s)
+🏷️ Run Classifier
 
+```
+# Classifying reads (Estimated time: 30s)
 time qiime feature-classifier classify-sklearn \
   --i-classifier gg-13-8-99-515-806-nb-classifier.qza \
   --i-reads rep-seqs.qza \
   --o-classification taxonomy.qza
+```
 
-📜 Taxonomy Table Visualization (Estimated time: 30s)
+📜 Taxonomy Table Visualization
 
+```
+# Conversion of taxonomy file (Estimated time: 30s)
 time qiime metadata tabulate \
   --m-input-file taxonomy.qza \
   --o-visualization taxonomy.qzv
+```
 
-📊 Taxa Bar Plot (Estimated time: 30s)
+📊 Taxa Bar Plot 
 
+```
+# Visualize the data with barplot (Estimated time: 30s)
 time qiime taxa barplot \
   --i-table table.qza \
   --i-taxonomy taxonomy.qza \
   --m-metadata-file sample-metadata.tsv \
   --o-visualization taxa-bar-plots.qzv
+```
 
 🏆 Differential Abundance Testing with ANCOM-BC
 
-🏅 Identify Differentially Abundant Features (Estimated time: 30s)
+🏅 Identify Differentially Abundant Features
 
+```
+# Perform ancom on 'vegetation' (Estimated time: 30s)
 time qiime composition ancombc \
   --i-table table.qza \
   --m-metadata-file sample-metadata.tsv \
   --p-formula 'vegetation' \
   --o-differentials ancombc-vegetation.qza
+```
 
 📊 ANCOM Visualization (Estimated time: 30s)
 
+```
+# Visualize the result with barplot
 time qiime composition da-barplot \
   --i-data ancombc-vegetation.qza \
   --p-significance-threshold 0.001 \
   --o-visualization da-barplot-vegetation.qzv
+```
 
-🏗️ Collapse Taxonomic Levels (Estimated time: 30s)
+🏗️ Collapse Taxonomic Levels
 
+```
+# Agglomerate to genus level  (Estimated time: 30s)
 time qiime taxa collapse \
   --i-table table.qza \
   --i-taxonomy taxonomy.qza \
   --p-level 6 \
   --o-collapsed-table table-l6.qza
+```
 
 📊 Test Statistics on Collapsed Data (Estimated time: 1 min)
 
+```
+# Perform statistic on genus level and across 'vegetation'
 time qiime composition ancombc \
   --i-table table-l6.qza \
   --m-metadata-file sample-metadata.tsv \
   --p-formula 'vegetation' \
   --o-differentials l6-ancombc-vegetation.qza
+```
 
 📈 Barplot for Collapsed Data (Estimated time: 1 min)
 
+```
+# Visualize the data with barplot
 time qiime composition da-barplot \
   --i-data l6-ancombc-vegetation.qza \
   --p-significance-threshold 0.01 \
   --p-level-delimiter ';' \
   --o-visualization l6-da-barplot-vegetation.qzv
+```
+  
+
+4️⃣5️⃣6️⃣7️⃣
 
 🎉 Awesome job! You've now completed the full QIIME 2 workflow, from installation to statistical analysis! 🚀 Keep exploring, and don't hesitate to dive deeper! 🔬💪
 
