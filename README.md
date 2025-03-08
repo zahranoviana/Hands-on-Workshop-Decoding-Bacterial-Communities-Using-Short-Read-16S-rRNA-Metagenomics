@@ -165,7 +165,7 @@ qiime demux summarize \
   --o-visualization demux-subsample.qzv
 ```
 
-The result is something like this
+You can open the qzv file in https://view.qiime2.org/. The result is something like this:
 
 1. Count summary
 ![image](https://github.com/user-attachments/assets/26859cf8-24fc-4333-b7ba-8f3076bd645d)
