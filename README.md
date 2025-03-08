@@ -29,7 +29,7 @@ Welcome to the workshop!
 
 ### 1️⃣ Install QIIME2 and Download Database, Sequences, Metafile, and Barcode Information
 
-#### 🔥 1.1 First, let's install QIIME 2 and set up our environment!
+#### 🔥 1.1 First, let's install QIIME2 and set up our environment!
 ```
 # This code is for the installation (Estimated time: 30s)
 conda env create -n qiime2-amplicon-2024.5 --file https://data.qiime2.org/distro/amplicon/qiime2-amplicon-2024.5-py39-linux-conda.yml
@@ -49,17 +49,17 @@ conda env create -n qiime2-amplicon-2024.5 --file https://data.qiime2.org/distro
 # conda env create -n qiime2-amplicon-2024.5 --file qiime2-amplicon-2024.5.yml
 ```
 
-#### 🧬 1.3 Download the Classifier (Estimated time: 30s)
+#### 🧬 1.3 Download the Classifier
 ```
-# This is to download greengenes database
+# This is to download greengenes database (Estimated time: 30s)
 wget \
   -O "gg-13-8-99-515-806-nb-classifier.qza" \
   "https://data.qiime2.org/classifiers/sklearn-1.4.2/greengenes/gg-13-8-99-515-806-nb-classifier.qza"
 ```
 
-#### 🗂️ 1.4 Download Metadata (Estimated time: 10s)
+#### 🗂️ 1.4 Download Metadata
 ```
-# This is to download metadata
+# This is to download metadata (Estimated time: 10s)
 wget -O "sample-metadata.tsv" https://data.qiime2.org/2024.5/tutorials/atacama-soils/sample_metadata.tsv
 ```
 
