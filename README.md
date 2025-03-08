@@ -296,8 +296,7 @@ qiime diversity alpha-group-significance \
 ```
 
 Visualization of the result from https://view.qiime2.org/:
-![image](https://github.com/user-attachments/assets/f9e2c8c3-92c6-45f9-abd1-40aa444f0a56)
-
+![image](https://github.com/user-attachments/assets/e093d9ab-0c6b-4594-b11b-b0803bf50d2f)
 
 🌍 Evenness Test (Estimated time: 30s)
 
@@ -331,6 +330,10 @@ qiime diversity beta-group-significance \
   --p-pairwise
 ```
 
+Visualization of the result:
+![image](https://github.com/user-attachments/assets/6639cf23-e4fa-4f40-b276-9d041015950e)
+
+
 🎭 Principal Coordinate Analysis (PCoA) Visualization
 
 🗺️ UniFrac PCoA Plot
@@ -340,9 +343,11 @@ Visualize PCoA using UniFrac distance (Estimated time: 1 min):
 qiime emperor plot \
   --i-pcoa core-metrics-results/unweighted_unifrac_pcoa_results.qza \
   --m-metadata-file sample-metadata.tsv \
-  --p-custom-axes elevation \
-  --o-visualization core-metrics-results/unweighted-unifrac-emperor-elevation.qzv
+  --o-visualization core-metrics-results/unweighted-unifrac-emperor.qzv
 ```
+
+Visualization of the result:
+![image](https://github.com/user-attachments/assets/11a40750-5fdb-49af-a545-26a542f2be12)
 
 📌 Bray-Curtis PCoA Plot 
 
@@ -351,9 +356,11 @@ Visualize PCoA using Bray-Curtis distance (Estimated time: 1 min):
 qiime emperor plot \
   --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \
   --m-metadata-file sample-metadata.tsv \
-  --p-custom-axes elevation \
-  --o-visualization core-metrics-results/bray-curtis-emperor-days-elevation.qzv
+  --o-visualization core-metrics-results/bray-curtis-emperor-days.qzv
 ```
+
+Visualization of the result:
+![image](https://github.com/user-attachments/assets/6979564b-c210-412b-986d-eb3e3b05b0f9)
 
 ### 6️⃣ Taxonomic Assignment and Visualization
 🧬 Taxonomic Classification
@@ -388,6 +395,10 @@ qiime taxa barplot \
   --o-visualization taxa-bar-plots.qzv
 ```
 
+Visualization of the result:
+![image](https://github.com/user-attachments/assets/9d708c11-f00c-4604-b64f-c05038715524)
+
+
 🏆 Differential Abundance Testing with ANCOM-BC
 
 🏅 Identify Differentially Abundant Features
@@ -410,6 +421,10 @@ qiime composition da-barplot \
   --p-significance-threshold 0.001 \
   --o-visualization da-barplot-vegetation.qzv
 ```
+
+Visualization of the result:
+![image](https://github.com/user-attachments/assets/e14fda75-7442-4c7f-a882-ebfe1a63cac3)
+
 
 🏗️ Collapse Taxonomic Levels
 
@@ -443,6 +458,11 @@ qiime composition da-barplot \
   --p-level-delimiter ';' \
   --o-visualization l6-da-barplot-vegetation.qzv
 ```
-  
+
+
+Visualization of the result:
+![image](https://github.com/user-attachments/assets/73231fcb-b8f2-4029-98d0-7d2b0cf13646)
+
+
 🎉 Awesome job! You've now completed the full QIIME 2 workflow, from installation to statistical analysis! 🚀 Keep exploring, and don't hesitate to dive deeper! 🔬💪
 
