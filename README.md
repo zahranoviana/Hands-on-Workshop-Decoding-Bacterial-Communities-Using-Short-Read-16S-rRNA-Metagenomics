@@ -268,6 +268,7 @@ qiime diversity alpha-rarefaction \
 ```
 
 Visualization of the result from https://view.qiime2.org/:
+![image](https://github.com/user-attachments/assets/5b8fe36b-4c44-429c-ad11-1689d59e1536)
 
 
 #### 5.2 📊 Test Alpha Diversity Metrics
@@ -295,6 +296,7 @@ qiime diversity alpha-group-significance \
 ```
 
 Visualization of the result from https://view.qiime2.org/:
+![image](https://github.com/user-attachments/assets/f9e2c8c3-92c6-45f9-abd1-40aa444f0a56)
 
 
 🌍 Evenness Test (Estimated time: 30s)
@@ -310,6 +312,7 @@ qiime diversity alpha-group-significance \
 ```
 
 Visualization of the result from https://view.qiime2.org/:
+![image](https://github.com/user-attachments/assets/09b52ade-aafc-47c5-96bf-9e0b1639a462)
 
 
 #### 5.3 🔬 Test Beta Diversity Metrics
